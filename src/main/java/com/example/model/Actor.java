@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 @Entity
+@Table(name = "actor")
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,6 +13,14 @@ public class Actor {
     private String lastName;
     private Timestamp lastUpdate;
 
+    public Actor() {
+    }
+    public Actor(Short actorId, String firstName, String lastName, Timestamp lastUpdate) {
+        this.actorId = actorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.lastUpdate = lastUpdate;
+    }
     public Short getActorId() {
         return actorId;
     }
