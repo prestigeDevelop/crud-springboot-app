@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,8 +40,9 @@ public class ActorController {
                     })
     })
     @GetMapping
-    public List<Actor> getAllActors() {
-        return actorService.findAll();
+    public Page<Actor> getAllActors(@RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "size", defaultValue = "10") int size) {
+        return actorService.findAll(page,size);
     }
 
     @Operation(summary = "Get actor by ID", description = "Retrieve an actor by their ID")

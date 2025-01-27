@@ -1,6 +1,10 @@
 package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.example.model.Actor;
 import com.example.repository.ActorRepository;
@@ -15,8 +19,9 @@ public class ActorService {
     @Autowired
     private ActorRepository actorRepository;
 
-    public List<Actor> findAll() {
-        return actorRepository.findAll();
+    public Page<Actor> findAll(int page , int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "actorId"));
+        return actorRepository.findAll(pageable);
     }
 
     public Optional<Actor> findById(Short id) {
