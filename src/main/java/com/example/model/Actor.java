@@ -21,6 +21,11 @@ public class Actor {
         this.lastName = lastName;
         this.lastUpdate = lastUpdate;
     }
+    public Actor( String firstName, String lastName, Timestamp lastUpdate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.lastUpdate = lastUpdate;
+    }
     public Short getActorId() {
         return actorId;
     }
