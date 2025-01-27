@@ -1,0 +1,86 @@
+# CRUD Spring Boot Application
+
+This project is a simple CRUD (Create, Read, Update, Delete) application built with Spring Boot. It manages a list of actors stored in a MySQL database.
+
+## Project Structure
+
+```
+crud-springboot-app
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── example
+│   │   │           ├── CrudSpringbootAppApplication.java
+│   │   │           ├── controller
+│   │   │           │   └── ActorController.java
+│   │   │           ├── model
+│   │   │           │   └── Actor.java
+│   │   │           ├── repository
+│   │   │           │   └── ActorRepository.java
+│   │   │           └── service
+│   │   │               └── ActorService.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       └── static
+│   └── test
+│       └── java
+│           └── com
+│               └── example
+│                   └── CrudSpringbootAppApplicationTests.java
+├── pom.xml
+└── README.md
+```
+
+## Setup Instructions
+
+1. **Clone the repository:**
+   ```
+   git clone <repository-url>
+   cd crud-springboot-app
+   ```
+
+2. **Configure the database:**
+   Update the `src/main/resources/application.properties` file with your MySQL database details:
+   ```
+   spring.datasource.url=jdbc:mysql://localhost:3306/sakila
+   spring.datasource.username=root
+   spring.datasource.password=1234
+   ```
+
+3. **Build the project:**
+   Use Maven to build the project:
+   ```
+   mvn clean install
+   ```
+
+4. **Run the application:**
+   Start the Spring Boot application:
+   ```
+   mvn spring-boot:run
+   ```
+
+## Usage
+
+- The application exposes RESTful endpoints for managing actors.
+- You can perform CRUD operations using tools like Postman or cURL.
+
+## Dependencies
+
+This project uses the following dependencies:
+- Spring Boot
+- Spring Data JPA
+- MySQL Connector
+
+## Testing
+
+Test cases are included in the `src/test/java/com/example/CrudSpringbootAppApplicationTests.java` file to ensure the application behaves as expected. Run the tests using:
+```
+mvn test
+```
+
+## License
+
+This project is licensed under the MIT License.
+
+swagger url : http://localhost:8080/swagger-ui.html
