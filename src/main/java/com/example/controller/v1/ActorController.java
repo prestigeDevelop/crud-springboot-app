@@ -11,12 +11,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
+import java.net.URI;
+@Slf4j
 @Tag(name = "Actors", description = "Endpoints for managing actors(V1)")
 @RestController
 @RequestMapping("/api/v1/actors")
@@ -53,6 +57,7 @@ public class ActorController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<Actor> getActorById(@PathVariable(value = "id") Short actorId) {
+        log.info(" haha haha haaha ha ha Fetching actor by id:{}",actorId);
         return actorService.findById(actorId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -60,13 +65,19 @@ public class ActorController {
 
     @Operation(summary = "Create a new actor", description = "Add a new actor to the database")
     @PostMapping
-    public Actor createActor(@RequestBody Actor actor) {
-        return actorService.save(actor);
+    public ResponseEntity<Actor> createActor(@Valid @RequestBody Actor actor) {
+        Actor savedActor = actorService.save(actor);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedActor.getActorId())
+                .toUri();
+        return ResponseEntity.created(location).body(savedActor);
     }
 
     @Operation(summary = "Update an actor", description = "Update an existing actor's details")
     @PutMapping("/{id}")
-    public ResponseEntity<Actor> updateActor(@PathVariable(value = "id") Short actorId, @RequestBody Actor actorDetails) {
+    public ResponseEntity<Actor> updateActor(@PathVariable(value = "id") Short actorId,@Valid @RequestBody Actor actorDetails) {
         return actorService.updateActor(actorId, actorDetails)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
