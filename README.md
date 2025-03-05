@@ -84,3 +84,35 @@ mvn test
 This project is licensed under the MIT License.
 
 swagger url : http://localhost:8080/swagger-ui.html
+
+Step-by-Step Process
+1. Rebuild the Docker Image
+   Since your docker-compose.yml uses the image crud-springboot-app:latest, you need to rebuild this image with your updated code:
+
+Navigate to Your Project Directory: Ensure you’re in the directory containing your Dockerfile and project files (e.g., C:\development\hibernateJpa\crud-springboot-app):
+
+cd C:\development\hibernateJpa\crud-springboot-app
+Build the New Image: Run the following command to build the updated image. Replace . with the path to your project context if your Dockerfile is elsewhere:
+docker build -t crud-springboot-app:latest .
+
+mvn clean package
+Verify the Image: Check that the new image is built successfully:
+docker images
+3. Redeploy the Stack
+   docker stack deploy -c docker-compose.yml crud-stack
+4. Verify the Update: Check the service status to ensure the update was successful:
+docker service ls
+
+
+docker build -t crud-springboot-app:latest .
+mvn clean package
+docker images
+docker stack deploy -c docker-compose.yml crud-stack
+docker service ls
+
+
+
+mvn clean package  # Rebuild the JAR if needed
+docker build -t crud-springboot-app:latest .
+Or
+docker tag crud-springboot-app:v1.0.1 crud-springboot-app:v1.0.1
